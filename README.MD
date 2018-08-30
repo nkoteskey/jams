@@ -1,28 +1,7 @@
-# README #
+# Jams #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+### Description ###
+* A React application for uploading, sharing and playing user-created music on the SAFE network.
 
-### What is this repository for? ###
-
-* A React application for uploading, sharing and playing user created music on the Maidsafe network.
+### Version ###
 * 0.0.1
-
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
