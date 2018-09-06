@@ -12,22 +12,6 @@ The purpose of this document is to define the schema for each type of data objec
 - [ ] Date uploaded (date/time)
 - [ ] Last played (date/time)
 
-### Tags (assignable attributes for songs)
-- [ ] Descriptor (string, e.g. Blues, Study Music, etc.)
-
-### Playlist
-- [ ] ID (string, unique)
-- [ ] Title (string)
-- [ ] Date created (date/time)
-- [ ] Last played (date/time)
-- [ ] Songs (reference, array of song ID's)
-
-### Broadcast
-- [ ] ID (string, unique)
-- [ ] User (reference, user ID of creator)
-- [ ] Songs (array of song ID's)
-- [ ] Subscribers (reference, array of user ID's)
-
 ### User
 - [ ] ID (string, unique)
 - [ ] Songs (reference, array of song ID's)
@@ -38,3 +22,19 @@ The purpose of this document is to define the schema for each type of data objec
 - [ ] Users followed (reference, array of user ID's)
 - [ ] Stations subscribed (reference, array of station ID's)
 - [ ] Followers (reference, array of user ID's)
+
+### Broadcast
+- [ ] ID (string, unique)
+- [ ] User (reference, user ID of creator)
+- [ ] Songs (array of song ID's)
+- [ ] Subscribers (reference, array of user ID's)
+
+### Playlist
+- [ ] ID (string, unique)
+- [ ] Title (string)
+- [ ] Date created (date/time)
+- [ ] Last played (date/time)
+- [ ] Songs (reference, array of song ID's)
+
+### Tags (assignable attributes for songs)
+- [ ] Descriptor (string, e.g. Blues, Study Music, etc.)
