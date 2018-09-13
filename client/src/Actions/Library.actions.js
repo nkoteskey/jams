@@ -29,7 +29,7 @@ Library.loading = (bool) => {
 
 Library.addSongToLibrary = (song) => {
     return async (dispatch) => {
-        dispatch(loading(true))
+        dispatch(Library.loading(true))
         try {
             const addSong = await fetch('http://localhost:3001/api/library',
                 {
