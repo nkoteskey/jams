@@ -34,9 +34,28 @@ Playlist.loading = (bool) => {
     }
 }
 
+Playlist.addNewPlaylist = (playlist) => {
+    return async (dispatch) => {
+        dispatch(Playlist.loading(true))
+        try {
+            const addPlaylist = await fetch('http://localhost:3001/api/playlist',
+                {
+                    method: 'POST',
+                    body: playlist
+                })
+            const response = await addPlaylist.json()
+            dispatch(Playlist.newPlaylist(response))
+            dispatch(Playlist.loading(false))
+        } catch (e) {
+            dispatch(Playlist.loading(false))
+            console.log('There has been a problem adding a new playlist: ', e.message);
+        }
+    }
+}
+
 Playlist.addSongToPlaylist = (song) => {
     return async (dispatch) => {
-        dispatch(loading(true))
+        dispatch(Playlist.loading(true))
         try {
             const addSong = await fetch('http://localhost:3001/api/playlist',
                 {
