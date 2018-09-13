@@ -10,7 +10,10 @@ export function library(state = [], action) {
                 }
             ]
         case ActionType.REMOVE_SONG_FROM_LIBRARY:
-            return // Need to create new array excluding the given song
+            return [
+                ...state.songs.slice(0, state.indexOf(action.song)),
+                ...state.songs.slice(state.indexOf(action.song) + 1)                
+            ]
         default:
             return state
     }
