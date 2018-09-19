@@ -4,6 +4,7 @@ export const ActionType = {
     RETRIEVE_PLAYLIST: 'RETRIEVE_PLAYLIST',
     ADD_SONG_TO_PLAYLIST: 'ADD_SONG_TO_PLAYLIST',
     ADD_NEW_PLAYLIST: 'ADD_NEW_PLAYLIST',
+    PLAYLIST_TITLE: 'PLAYLIST_TITLE',
     LOADING: 'LOADING',
     REMOVE_SONG_FROM_PLAYLIST: 'REMOVE_SONG_FROM_PLAYLIST'.
     REMOVE_PLAYLIST: 'REMOVE_PLAYLIST'
@@ -28,6 +29,13 @@ Playlist.newPlaylist = playlist => {
 		type: ActionType.ADD_NEW_PLAYLIST,
 		playlist
 	}
+}
+
+Playlist.changeTitle = title => {
+    return {
+        type: ActionType.PLAYLIST_TITLE,
+        title
+    }
 }
 
 Playlist.removeSong = song => {
