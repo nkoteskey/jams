@@ -1,0 +1,21 @@
+const Broadcast = {}
+
+/*
+ * Action Type Constants
+ */
+
+export const ActionType = {
+    RETRIEVE_BROADCAST: 'RETRIEVE_BROADCAST',
+    ADD_SONG_TO_BROADCAST: 'ADD_SONG_TO_LIBRARY',
+    REMOVE_SONG_FROM_BROADCAST: 'REMOVE_SONG_FROM_LIBRARY',
+    RETRIEVE_SUBSCRIBERS: 'RETRIEVE_SUBSCRIBERS',
+    REMOVE_SUBSCRIBER: 'REMOVE_SUBSCRIBER',
+    ADD_SUBSCRIBER: 'ADD_SUBSCRIBER',
+    LOADING: 'LOADING'
+}
+
+/*
+ * Action Creators
+ */
+
+export default Broadcast
