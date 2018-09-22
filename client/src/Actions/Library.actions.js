@@ -55,23 +55,23 @@ Library.loading = (bool) => {
  * Dispatch Methods
  */
 
- Library.retrieveLibrary = user => {
-     return async (dispatch) => {
-         dispatch(Library.loading(true))
-         try {
-             const findLibrary = await fetch(`http://localhost:3001/api/user/${user.id}/library`,
-                 {
-                     method: 'GET'
-                 })
-             const response = await findLibrary.json()
-             dispatch(Library.getLibrary(response))
-             dispatch(Library.loading(false))
-         } catch (e) {
-             dispatch(Library.loading(false))
-             console.log('Something is jammed. There has been a problem retrieving your library: ', e.message);
-         }
-     }
- }
+Library.retrieveLibrary = user => {
+    return async dispatch => {
+        dispatch(Library.loading(true))
+        try {
+            const findLibrary = await fetch(`http://localhost:3001/api/user/${user.id}/library`,
+                {
+                    method: 'GET'
+                })
+            const response = await findLibrary.json()
+            dispatch(Library.getLibrary(response))
+            dispatch(Library.loading(false))
+        } catch (e) {
+            dispatch(Library.loading(false))
+            console.log('Something is jammed. There has been a problem retrieving your library: ', e.message);
+        }
+    }
+}
 
 Library.addSongToLibrary = (song, library) => {
     return async dispatch => {
@@ -80,7 +80,7 @@ Library.addSongToLibrary = (song, library) => {
             const addSong = await fetch(`http://localhost:3001/api/library/${library.id}`,
                 {
                     method: 'PUT',
-                    body: library
+                    body: song
                 })
             const response = await addSong.json()
             dispatch(Library.newSong(response))
@@ -93,7 +93,7 @@ Library.addSongToLibrary = (song, library) => {
 }
 
 Library.removeSongFromLibrary = (song, library) => {
-    return async (dispatch) => {
+    return async dispatch => {
         dispatch(Library.loading(true))
         try {
             const pullSong = await fetch(`http://localhost:3001/api/library/${library.id}`,
@@ -112,7 +112,7 @@ Library.removeSongFromLibrary = (song, library) => {
 }
 
 Library.updateSongInLibrary = (song, library) => {
-    return async (dispatch) => {
+    return async dispatch => {
         dispatch(Library.loading(true))
         try {
             const modifySong = await fetch(`http://localhost:3001/api/library/${library.id}`,
