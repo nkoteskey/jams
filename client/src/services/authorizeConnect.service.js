@@ -1,53 +1,74 @@
 export default class authoriseAndConnect {
-    constructor() {
-        this.safeAppHandle = null
-        this.appInfo = {
-            name: 'Hello SAFE Network',
-            id: 'net.maidsafe.tutorials.web-app',
-            version: '0.1.0',
-            vendor: 'MaidSafe.net Ltd.'
-        }
-        this.authUri = null
-        this.connection = null
+  constructor() {
+    this.currentApp = null
+    this.appInfo = {
+      name: 'Hello SAFE Network',
+      id: 'net.maidsafe.tutorials.web-app',
+      version: '0.1.0',
+      vendor: 'MaidSafe.net Ltd.'
     }
+    this.connection = null
+  }
 
-    // Authorize application,
-    // establish connection to network,
-    // and return app handle.
-    async appHandle() {
-        try {
-            // Initialize application
-            console.log('Initialising SAFE application...')
-            const currentHandle = await window.safe.initialiseApp(this.appInfo);
+  // Authorize application,
+  // establish connection to network,
+  // and return app handle.
+  async appHandle() {
+    try {
+      if (this.connection) {
+        console.log('already connected')
+      }
+      // Initialize application
+      this.safeApp = await window.safe.initialiseApp(this.appInfo);
 
-            this.safeAppHandle = await currentHandle.auth.genAuthUri();
-            this.authUri = await window.safe.authorise(this.safeAppHandle);
-            console.log('SAFE application authorised by user');
+      const authReqUri = await this.safeApp.auth.genAuthUri();
+      const authUri = await window.safe.authorise(authReqUri);
+      const connection = await this.safeApp.auth.loginFromUri(authUri);
 
-            this.connection = await currentHandle.auth.loginFromUri(this.authUri);
-            console.log("Application connected to the network");
+      console.log(this.safeApp)
 
-            this.currentAppHandle = currentHandle
-            console.log(this.currentAppHandle)
-            console.log(this.authUri)
-            console.log(this.connection)
+      const typeTag = 15001;
+      const md = await this.safeApp.mutableData.newRandomPublic(typeTag);
 
-            return this.currentAppHandle
-        } catch(e) {
-            throw e
-        }
+      const initialData = {
+        "random_key_1": JSON.stringify({
+            text: 'Scotland to try Scotch whisky',
+            made: false
+          }),
+        "random_key_2": JSON.stringify({
+            text: 'Patagonia before I\'m too old',
+            made: false
+          })
+      };
+      const data = await md.quickSetup(initialData);
 
+      const entries = await md.getEntries();
+      const entriesList = await entries.listEntries();
+
+      const items = [];
+      entriesList.forEach((entry) => {
+        const value = entry.value;
+        if (value.buf.length == 0) return;
+        const parsedValue = JSON.parse(value.buf);
+        items.push({ key: entry.key, value: parsedValue, version: value.version });
+      });
+      console.log(items)
+
+      return this.safeApp
+    } catch(e) {
+      throw e
     }
+  }
 
-    get currentAppHandle() {
-        if (this.safeAppHandle == null
-            || this.safeAppHandle == undefined) {
-                return undefined
-        }
-        return this.safeAppHandle
+  get safeApp() {
+    if (this.currentApp === null
+      || this.currentApp === undefined) {
+        return undefined
     }
+    return this.currentApp
+  }
 
-    set currentAppHandle(handle) {
-        this.safeAppHandle = handle
-    }
+  set safeApp(app) {
+    this.currentApp = app
+  }
 }
