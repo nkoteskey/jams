@@ -10,20 +10,17 @@ class App extends Component {
   }
 
   async authorize() {
-
-  }
-
-  async componentDidMount() {
     const auth = new Auth()
-    console.log(auth)
     const handle = await auth.appHandle()
-    console.log(handle)
     this.setState({ auth: handle })
   }
 
+  async componentDidMount() {
+    await this.authorize()
+
+  }
+
   render() {
-    console.log(this.state.auth)
-    // console.log(Auth.appHandle())
     return (
       this.state.auth &&
       <div className="App">
