@@ -60,7 +60,7 @@ Broadcast.removeSubscriber = subscriber => {
     }
 }
 
-Broadcast.loading = (bool) => {
+Broadcast.loading = bool => {
     return {
         type: ActionType.LOADING,
         broadcastLoading: bool
@@ -72,7 +72,7 @@ Broadcast.loading = (bool) => {
  */
 
 Broadcast.retrieveBroadcast = broadcastId => {
-    return async (dispatch) => {
+    return async dispatch => {
         dispatch(Broadcast.loading(true))
         try {
             const findBroadcast = await fetch(`http://localhost:3001/api/broadcasts/${broadcastId}`,
